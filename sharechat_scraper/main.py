@@ -29,9 +29,9 @@ import urllib
 # chromedriver_autoinstaller.install()
 # print("Done.")
 
-data_folder = 'data'
-if not os.path.exists(data_folder):
-    os.makedirs(data_folder)
+main_data_folder = 'data'
+if not os.path.exists(main_data_folder):
+    os.makedirs(main_data_folder)
 
 # Function to download and save media
 import base64
@@ -44,11 +44,11 @@ import re
 from PIL import Image
 from io import BytesIO
 
-data_folder = "data"  # Folder to store downloaded media
+main_data_folder = "data"  # Folder to store downloaded media
 
 valid_image_extensions = "jpg,png,jpeg".split(',')
 
-def download_media(url, media_type, post_ph, user_id):
+def download_media(url, media_type, post_ph, user_id, folder_path):
     print(f"\nGetting image: {url}\n")
     try:
         # Check if the URL is a base64-encoded data URI
@@ -63,7 +63,7 @@ def download_media(url, media_type, post_ph, user_id):
             
             # Save the file in the data folder with the post_ph as the filename
             folder_name = str(user_id)  # Convert user_id to string
-            filename = f'{data_folder}/{post_ph}.jpeg'
+            filename = f'{folder_path}/{post_ph}.jpeg'
             
             with open(filename, 'wb') as file:
                 file.write(image_data)
@@ -84,7 +84,7 @@ def download_media(url, media_type, post_ph, user_id):
             if response.status_code == 200:
                 # Save the file in the data folder with the post_ph as the filename
                 folder_name = str(user_id)  # Convert user_id to string
-                filename = f'{data_folder}/{post_ph}{file_extension}'
+                filename = f'{folder_path}/{post_ph}{file_extension}'
                 with open(filename, 'wb') as file:
                     for chunk in response.iter_content(chunk_size=128):
                         file.write(chunk)
@@ -126,7 +126,7 @@ chrome_options.add_argument("--no-sandbox")
 
 from selenium.webdriver.chrome.service import Service
 # service = Service(executable_path='./chromedriver120')
-service = Service(executable_path='./chromedriver')
+service = Service(executable_path='/usr/lib/chromium-browser/chromedriver')
 
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
@@ -148,6 +148,12 @@ outputJsonL = open(outputName, 'a', encoding='utf-8')
 
 keepRunning = True
 for tag_url in tag_urls:
+
+    data_folder_tag = f'data/{tag_url.split("/")[-1]}'
+    
+    if not os.path.exists(data_folder_tag):
+        os.makedirs(data_folder_tag)
+
     if not keepRunning:
         break
     postsDone = 0
@@ -486,7 +492,7 @@ for tag_url in tag_urls:
                         img_src = img.get_attribute('src')
                     # or ("data:image" in img_src.lower()) # Additional Condition
                     if (img_src.lower().split('.')[-1] in valid_image_extensions):
-                        img_filename = download_media(img_src, f'image_{idx}', post_ph, author_name)
+                        img_filename = download_media(img_src, f'image_{idx}', post_ph, author_name, data_folder_tag)
                         if img_filename:
                             print(f"Downloaded image: {img_filename}")
 
@@ -498,7 +504,7 @@ for tag_url in tag_urls:
                         media_src = media.get_attribute("src")
                     # media_type = 'image' if (media_src.lower().split('.')[-1] in valid_image_extensions) else 'video'
                     media_type = 'video'
-                    media_filename = download_media(media_src, f'{media_type}_{idx}', post_ph, author_name)
+                    media_filename = download_media(media_src, f'{media_type}_{idx}', post_ph, author_name, data_folder_tag)
                     if media_filename:
                         print(f"Downloaded {media_type}: {media_filename}")
 
