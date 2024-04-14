@@ -1,3 +1,5 @@
+import pandas as pd
+
 import os
 import pickle
 import json
@@ -67,9 +69,14 @@ for folder_path, files in sentiments.items():
     pos_scores = []
     neu_scores = []
     neg_scores = []
+    likes_lst = []
+    views_lst = []
     for filename, file_data in tqdm(files.items(), desc = "Calculating Average Sentiment Scores"):
         likes, views = read_likes_views(f"sharechat_scraper/{leader_hash}.jsonl", filename[:-4])
         views = convert_to_integral_number(views)
+
+        likes_lst.append(likes)
+        views_lst.append(views)
         scaling_factor = int(views) / int(likes)
 
         unscaled_pos = file_data["scores"]["pos"]
@@ -83,10 +90,22 @@ for folder_path, files in sentiments.items():
         pos_scores.append(scaled_pos)
         neu_scores.append(scaled_neu)
         neg_scores.append(scaled_neg)
-        
+   
     normalized_pos = normalize_list(pos_scores)
     normalized_neu = normalize_list(neu_scores)
     normalized_neg = normalize_list(neg_scores)
+
+    df = pd.DataFrame(columns = ['pos', 'neu', 'neg', 'likes', 'views'])
+    df['pos'] = normalized_pos
+    df['neu'] = normalized_neu
+    df['neg'] = normalized_neg
+    df['likes'] = likes_lst
+    df['views'] = views_lst
+    file_to_save = f'{leader_mappings[leader_hash]}.csv'
+    df.to_csv(file_to_save)
+    print()
+    print(f'Successfully saved {file_to_save}!')
+    print()
 
     avg_leader_pos = sum(normalized_pos) / len(normalized_pos)
     avg_leader_neu = sum(normalized_neu) / len(normalized_neu)

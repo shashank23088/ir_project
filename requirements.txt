@@ -1,3 +1,5 @@
+notebook
+jupyterlab
 appnope
 backcall
 boto
