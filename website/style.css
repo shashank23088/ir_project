@@ -1,0 +1,109 @@
+/* General styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header and Footer styles */
+header, footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.loda {
+  font-weight: 800;
+  font-size: 800;
+}
+
+footer {
+  margin-top: auto;
+}
+
+/* Dropdown menu styles */
+.dropdown-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dropdown {
+  margin: 0 10px;
+}
+
+.dropdown label {
+  margin-right: 5px;
+}
+
+/* Main content styles */
+main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #f2f2f2;
+  flex-grow: 1;
+}
+
+/* Leader image styles */
+.leader-image-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 40px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.leader-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.leader-image:hover {
+  transform: scale(1.1);
+}
+
+/* Visualization layout styles */
+.visualization-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  flex-grow: 1;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.sentiment-plot {
+  width: 100%;
+  max-width: 800px;
+  height: 575px;
+  background-color: #ddd;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Background image styles */
+.background-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-image: url('Designer.png');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}

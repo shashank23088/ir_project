@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political Opinion Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 class = 'loda'>Multimodal Multimedia Political Opinion Analysis</h1>
+        <div class="dropdown-container">
+            <div class="dropdown">
+                <label for="leader-select">Select Leader:</label>
+                <select id="leader-select"></select>
+            </div>
+            <div class="dropdown">
+                <label for="language-select">Select Language:</label>
+                <select id="language-select"></select>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="leader-image-container">
+            <img class="leader-image" src="" alt="Leader Image">
+        </div>
+        <div class="visualization-container">
+            <div class="row">
+                <img id="sentiment-plot-1" alt="Sentiment Visualization 1" class="sentiment-plot">
+                <img id="sentiment-plot-2" alt="Sentiment Visualization 2" class="sentiment-plot">
+            </div>
+            <div class="row">
+                <img id="sentiment-plot-3" alt="Sentiment Visualization 3" class="sentiment-plot">
+                <img id="sentiment-plot-4" alt="Sentiment Visualization 4" class="sentiment-plot">
+            </div>
+            <div class="row">
+                <img id="sentiment-plot-5" alt="Sentiment Visualization 5" class="sentiment-plot">
+                <img id="sentiment-plot-6" alt="Sentiment Visualization 6" class="sentiment-plot">
+            </div>
+        </div>
+    </main>
+
+    <div class="background-image"></div>
+
+    <footer>
+        <p>&copy; 2023 Political Opinion Analyzer. - Group 26: Shashank G. Sharma, Ankur Tiwari, Karanbir Singh, Hrishikesh Khambete, Anshuman Uniyal, Vani Mittal</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
