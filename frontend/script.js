@@ -16,11 +16,11 @@ const leaders = [
     name: 'Arvind Kejriwal',
     image: 'arvind.png',
     description: 'Chief Minister of Delhi',
-    plots: ['aarvind1.png', 'aarvind2.png', 'aarvind3.png']
+    plots: ['aarvind1.png', 'aarvind2.png', 'aarvind3.png','aarvind4.png']
   }
 ];
 
-const languages = ['Hindi', 'Telgu'];
+const languages = ['Hindi', 'Telgu','Punjabi', 'Bengali','Gujrati'];
 
 // Get the necessary HTML elements
 const leaderSelect = document.getElementById('leader-select');
@@ -62,28 +62,90 @@ function updateVisualizations() {
 
   // Update the visualization plots based on the language and leader
   if (selectedLanguage === 'Telgu' && selectedLeader.name === 'Narendra Modi') {
-    // Update the visualization plots for Modi in Spanish
+    // Update the visualization plots for Modi in Telgu
     for (let i = 0; i < selectedLeader.plots.length; i++) {
-      visualizationContainer[i].src = `tmodi${i + 1}.png`;
+      visualizationContainer[i].src = tmodi${i + 1}.png;
     }
   } 
  
   else if (selectedLanguage === 'Telgu' && selectedLeader.name === 'Rahul Gandhi') {
-    // Update the visualization plots for Rahul in Spanish
+        // Update the visualization plots for Rahul in Telgu
     for (let i = 0; i < selectedLeader.plots.length; i++) {
-      visualizationContainer[i].src = `trahul${i + 1}.png`;
+      visualizationContainer[i].src = trahul${i + 1}.png;
     }
   } 
 
   
   else if (selectedLanguage === 'Telgu' && selectedLeader.name === 'Arvind Kejriwal') {
-    // Update the visualization plots for Rahul in Spanish
+    // Update the visualization plots for Arvind in Telgu
     for (let i = 0; i < selectedLeader.plots.length; i++) {
-      visualizationContainer[i].src = `tarvind${i + 1}.png`;
+      visualizationContainer[i].src = tarvind${i + 1}.png;
     }
   } 
 
 
+  else if (selectedLanguage === 'Punjabi' && selectedLeader.name === 'Narendra Modi') {
+       // Update the visualization plots for Modi in Punjabi
+    for (let i = 0; i < selectedLeader.plots.length; i++) {
+      visualizationContainer[i].src = pmodi${i + 1}.png;
+    }
+  } 
+
+  else if (selectedLanguage === 'Punjabi' && selectedLeader.name === 'Rahul Gandhi') {
+       // Update the visualization plots for Rahul in Punjabi
+    for (let i = 0; i < selectedLeader.plots.length; i++) {
+      visualizationContainer[i].src = prahul${i + 1}.png;
+    }
+  } 
+
+  else if (selectedLanguage === 'Punjabi' && selectedLeader.name === 'Arvind Kejriwal') {
+       // Update the visualization plots for Arvind in Punjabi
+    for (let i = 0; i < selectedLeader.plots.length; i++) {
+      visualizationContainer[i].src = parvind${i + 1}.png;
+    }
+  } 
+
+  else if (selectedLanguage === 'Bengali' && selectedLeader.name === 'Narendra Modi') {
+    // Update the visualization plots for Modi in Bengali
+ for (let i = 0; i < selectedLeader.plots.length; i++) {
+   visualizationContainer[i].src = bmodi${i + 1}.png;
+ }
+} 
+
+else if (selectedLanguage === 'Bengali' && selectedLeader.name === 'Rahul Gandhi') {
+    // Update the visualization plots for Rahul in Bengali
+ for (let i = 0; i < selectedLeader.plots.length; i++) {
+   visualizationContainer[i].src = brahul${i + 1}.png;
+ }
+} 
+
+else if (selectedLanguage === 'Bengali' && selectedLeader.name === 'Arvind Kejriwal') {
+    // Update the visualization plots for Arvind in Bengali
+ for (let i = 0; i < selectedLeader.plots.length; i++) {
+   visualizationContainer[i].src = barvind${i + 1}.png;
+ }
+} 
+
+else if (selectedLanguage === 'Gujrati' && selectedLeader.name === 'Narendra Modi') {
+  // Update the visualization plots for Modi in Gujrati
+for (let i = 0; i < selectedLeader.plots.length; i++) {
+ visualizationContainer[i].src = gmodi${i + 1}.png;
+}
+} 
+
+else if (selectedLanguage === 'Gujrati' && selectedLeader.name === 'Rahul Gandhi') {
+  // Update the visualization plots for Rahul in Gujrati
+for (let i = 0; i < selectedLeader.plots.length; i++) {
+ visualizationContainer[i].src = grahul${i + 1}.png;
+}
+} 
+
+else if (selectedLanguage === 'Gujrati' && selectedLeader.name === 'Arvind Kejriwal') {
+  // Update the visualization plots for Arvind in Gujrati
+for (let i = 0; i < selectedLeader.plots.length; i++) {
+ visualizationContainer[i].src = garvind${i + 1}.png;
+}
+} 
 
 
 
