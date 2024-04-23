@@ -50,7 +50,7 @@
     </li>
   </ol>
 
-  <h2>Future Implementation</h2>
-  <p>Develop a user interface (UI) for visualizing sentiment analysis results for each leader.</p>
+  <h2>Result Implementation</h2>
+  <p> User interface (UI) for visualizing sentiment analysis results for each leader. run index.html in frontend</p>
 </body>
 </html>
