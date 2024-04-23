@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShareChat Data Processing Pipeline</title>
 </head>
 <body>
   <h1>ShareChat Data Processing Pipeline</h1>
