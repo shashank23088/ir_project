@@ -52,5 +52,7 @@
 
   <h2>Result Implementation</h2>
   <p> User interface (UI) for visualizing sentiment analysis results for each leader. run index.html in frontend</p>
+  <h2>Project Demonstration </h2>
+  <p>https://youtu.be/nNgTlCs4e5U</p>
 </body>
 </html>
