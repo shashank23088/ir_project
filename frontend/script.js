@@ -1,17 +1,34 @@
 // Sample data for leaders and languages
 const leaders = [
-  { name: 'Modi', image: 'modi.png', plots: ['scatter_plot.png', 'line_plot.png', 'bar_plot.png', 'pie_chart.png', 'scatter_plot.png', 'scatter_plot.png'] },
-  { name: 'Rahul', image: 'rahul.png', plots: ['scatter_plot.png', 'line_plot.png', 'bar_plot.png', 'pie_chart.png', 'scatter_plot.png', 'scatter_plot.png'] },
-  { name: 'Arvind', image: 'arvind.png', plots: ['scatter_plot.png', 'line_plot.png', 'bar_plot.png', 'pie_chart.png', 'scatter_plot.png', 'scatter_plot.png'] }
+  {
+    name: 'Narendra Modi',
+    image: 'modi.png',
+    description: 'Prime Minister of India',
+    plots: ['nmodi1.png', 'nmodi2.png', 'nmodi3.png', 'nmodi4.png']
+  },
+  {
+    name: 'Rahul Gandhi',
+    image: 'rahul.png',
+    description: 'Leader of the Indian National Congress',
+    plots: ['crahul1.png', 'crahul2.png', 'crahul3.png', 'crahul4.png']
+  },
+  {
+    name: 'Arvind Kejriwal',
+    image: 'arvind.png',
+    description: 'Chief Minister of Delhi',
+    plots: ['aarvind1.png', 'aarvind2.png', 'aarvind3.png']
+  }
 ];
 
-const languages = ['Hindi', 'English', 'Spanish', 'French', 'German'];
+const languages = ['Hindi', 'Telgu'];
 
 // Get the necessary HTML elements
 const leaderSelect = document.getElementById('leader-select');
 const languageSelect = document.getElementById('language-select');
 const leaderImage = document.querySelector('.leader-image');
+const leaderDescription = document.querySelector('.leader-description');
 const visualizationContainer = document.querySelectorAll('.sentiment-plot');
+const tooltips = document.querySelectorAll('.tooltip');
 
 // Populate the dropdown menus
 leaders.forEach(leader => {
@@ -32,7 +49,7 @@ languages.forEach(language => {
 leaderSelect.addEventListener('change', updateVisualizations);
 languageSelect.addEventListener('change', updateVisualizations);
 
-// Function to update the leader's image and visualizations
+// Function to update the leader's image, description, and visualizations
 function updateVisualizations() {
   const selectedLeader = leaders.find(leader => leader.name === leaderSelect.value);
   const selectedLanguage = languageSelect.value;
@@ -40,17 +57,70 @@ function updateVisualizations() {
   // Update the leader's image
   leaderImage.src = selectedLeader.image;
 
-  // Update the visualization plots
-  selectedLeader.plots.forEach((plot, index) => {
-      document.getElementById(`sentiment-plot-${index + 1}`).src = plot;
-  });
+  // Update the leader's description
+  leaderDescription.textContent = selectedLeader.description;
+
+  // Update the visualization plots based on the language and leader
+  if (selectedLanguage === 'Telgu' && selectedLeader.name === 'Narendra Modi') {
+    // Update the visualization plots for Modi in Spanish
+    for (let i = 0; i < selectedLeader.plots.length; i++) {
+      visualizationContainer[i].src = `tmodi${i + 1}.png`;
+    }
+  } 
+ 
+  else if (selectedLanguage === 'Telgu' && selectedLeader.name === 'Rahul Gandhi') {
+    // Update the visualization plots for Rahul in Spanish
+    for (let i = 0; i < selectedLeader.plots.length; i++) {
+      visualizationContainer[i].src = `trahul${i + 1}.png`;
+    }
+  } 
+
+  
+  else if (selectedLanguage === 'Telgu' && selectedLeader.name === 'Arvind Kejriwal') {
+    // Update the visualization plots for Rahul in Spanish
+    for (let i = 0; i < selectedLeader.plots.length; i++) {
+      visualizationContainer[i].src = `tarvind${i + 1}.png`;
+    }
+  } 
+
+
+
+
+
+
+  else {
+    // Update the visualization plots based on the leader's default plots
+    selectedLeader.plots.forEach((plot, index) => {
+      visualizationContainer[index].src = plot;
+    });
+  }
 }
+
+
 
 // Initialize sentiment plots with the first leader's data
 window.onload = function() {
   const initialLeader = leaders[0];
   leaderImage.src = initialLeader.image;
+  leaderDescription.textContent = initialLeader.description;
   initialLeader.plots.forEach((plot, index) => {
-      document.getElementById(`sentiment-plot-${index + 1}`).src = plot;
+    visualizationContainer[index].src = plot;
   });
 };
+
+// Tooltip functionality
+tooltips.forEach((tooltip, index) => {
+  const plot = visualizationContainer[index];
+  const tooltipText = tooltip.getAttribute('data-text');
+
+  plot.addEventListener('mouseenter', () => {
+    tooltip.textContent = tooltipText;
+    tooltip.style.visibility = 'visible';
+    tooltip.style.opacity = '1';
+  });
+
+  plot.addEventListener('mouseleave', () => {
+    tooltip.style.visibility = 'hidden';
+    tooltip.style.opacity = '0';
+  });
+});
