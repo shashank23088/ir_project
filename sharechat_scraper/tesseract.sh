@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define input and output directories
-input_dir="data"
-output_dir="tesseract"
+input_dir="updated_data/Punjabi"
+output_dir="updated_tesseract/Punjabi"
 
 # Loop through each folder in the input directory
 for folder in "$input_dir"/*; do
@@ -20,7 +20,7 @@ for folder in "$input_dir"/*; do
                 output_file="$output_folder/$file_name.txt"
 
                 # Run tesseract command
-                tesseract "$image_file" "$output_folder/$file_name" -l hin Devanagari eng > /dev/null 2>&1
+                tesseract "$image_file" "$output_folder/$file_name" -l Devanagari eng hin ben pan gujr telu > /dev/null 2>&1
 
                 # Check if the output file exists
                 if [ -f "$output_folder/$file_name.txt" ]; then

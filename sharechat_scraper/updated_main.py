@@ -236,10 +236,24 @@ for tag_url in tag_urls:
                 new_window = [
                     window for window in driver.window_handles if window != original_window][0]
                 driver.switch_to.window(new_window)
-                # toFindinLike = "लाइक"
-                # toFindinComment = "कमेंट"
-                toFindinLike = "পছন্দ"
-                toFindinComment = "মন্তব্য"
+                
+                if lang == 'Hindi':
+                    toFindinLike = "लाइक"
+                    toFindinComment = "कमेंट"
+                elif lang == 'Bengali':
+                    toFindinLike = "পছন্দ"
+                    toFindinComment = "মন্তব্য"
+                elif lang == 'Punjabi':
+                    toFindinLike = "ਲਾਈਕ"
+                    toFindinComment = "ਕਮੇਂਟ"
+                elif lang == 'Gujarati':
+                    toFindinLike = "લાઈક"
+                    toFindinComment = "કમેન્ટ"
+                elif lang == 'Telugu':
+                    toFindinLike = "లైక్"
+                    toFindinComment = "కామెంట్"
+                else:
+                    assert("Langugage not available!")
 
                 maxTriesFind = 5
                 tries = 0

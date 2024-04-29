@@ -7,6 +7,7 @@ import pickle
 from bs4 import BeautifulSoup
 from deep_translator import GoogleTranslator
 from tqdm import tqdm
+from constants import languages
 
 # Preprocess txt
 def remove_tags(html):
@@ -68,43 +69,52 @@ def read_files_and_translate(directory):
                 translations[filename] = {"translation": translation}
     return translations
 
-# directories = ['sharechat_scraper/tesseract/5ZEBpp/', 'sharechat_scraper/tesseract/lew5Am/', 'sharechat_scraper/tesseract/m6d09W/']
+for lang in languages:
 
-# # Dictionary to store translations
-# translations_dict = {}
+    print()
+    print(f"Processing for language: {lang}..")
+    print()
 
-# # Read files and translate text
-# for directory in directories:
-#     translations = read_files_and_translate(directory)
-#     translations_dict[directory] = translations
+    directories = [f'sharechat_scraper/updated_tesseract/{lang}/5ZEBpp_{lang}/', f'sharechat_scraper/updated_tesseract/{lang}/lew5Am_{lang}/', f'sharechat_scraper/updated_tesseract/{lang}/m6d09W_{lang}/',
+                    f'sharechat_scraper/updated_tesseract/{lang}/VO6Zjy_{lang}/', f'sharechat_scraper/updated_tesseract/{lang}/VO6ZVy_{lang}/']
 
-# # Save translations to a pickle file
-# pickle_file_path = 'translations.pickle'
-# with open(pickle_file_path, 'wb') as file:
-#     pickle.dump(translations_dict, file)
+    # Dictionary to store translations
+    translations_dict = {}
 
-# print("Translations saved to", pickle_file_path)
+    # Read files and translate text
+    for directory in directories:
+        translations = read_files_and_translate(directory)
+        translations_dict[directory] = translations
 
-to_text = "बिजेंदर बंसल ७ जुरुवात \
-प्रधानमंत्री नरेन्द्र मोदी ने कहा कि \
-कांग्रेस और घमंडिया गठबंधन \
-को अब देश में लाखों करोड़ों की \
-लागत से हो रहे विकास से दिककत \
-| है। उनकी नींद हराम हो गई हैं। वो \
-कह रहे हैं कि मोदी चुनाव की वजह \
-से लाखों करोड़ों के विकास कर रहे \
-| हैं। असल में इनके चश्मे का नंबर \
-आल नेगेटिव है। आल नेगेटिविटी \
-इनका चरित्र बन गया है। ये वो लोग \
-हैं जो चुनावी घोषणाओं की सरकार \
-चलाते थे। ये घोषणा करके घोंसले \
-में घुस गए थे। हाथ पर हाथ धरकर \
-बैठे रहे। अपनी उपलब्धियां गिनाति \
-हुए कहा कि 2024 में तीन माह के \
-भीतर ही 0 लाख करोड़ रुपये की \
-परियोजनाओं का वह स्वयं या तो \
-शिलान्यास कर चुके हैं या लोकार्पण"
+    # Save translations to a pickle file
+    pickle_file_path = f'translations_{lang}.pickle'
+    with open(pickle_file_path, 'wb') as file:
+        pickle.dump(translations_dict, file)
 
-print(f"Original Text: \n{to_text}")
-print()
-print(f"Translated Text: \n{translate_to_english(to_text, 'path')}")
+    print()
+    print(f"{lang} Translations saved to", pickle_file_path)
+    print()
+
+# to_text = "बिजेंदर बंसल ७ जुरुवात \
+# प्रधानमंत्री नरेन्द्र मोदी ने कहा कि \
+# कांग्रेस और घमंडिया गठबंधन \
+# को अब देश में लाखों करोड़ों की \
+# लागत से हो रहे विकास से दिककत \
+# | है। उनकी नींद हराम हो गई हैं। वो \
+# कह रहे हैं कि मोदी चुनाव की वजह \
+# से लाखों करोड़ों के विकास कर रहे \
+# | हैं। असल में इनके चश्मे का नंबर \
+# आल नेगेटिव है। आल नेगेटिविटी \
+# इनका चरित्र बन गया है। ये वो लोग \
+# हैं जो चुनावी घोषणाओं की सरकार \
+# चलाते थे। ये घोषणा करके घोंसले \
+# में घुस गए थे। हाथ पर हाथ धरकर \
+# बैठे रहे। अपनी उपलब्धियां गिनाति \
+# हुए कहा कि 2024 में तीन माह के \
+# भीतर ही 0 लाख करोड़ रुपये की \
+# परियोजनाओं का वह स्वयं या तो \
+# शिलान्यास कर चुके हैं या लोकार्पण"
+
+# print(f"Original Text: \n{to_text}")
+# print()
+# print(f"Translated Text: \n{translate_to_english(to_text, 'path')}")
