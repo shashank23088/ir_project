@@ -26,13 +26,13 @@ def preprocess_txt(in_text):
         in_txt = in_txt.lower()
         in_txt = nltk.tokenize.word_tokenize(in_txt)
     
-        out_txt1 = []
-        for word in in_txt:
-            if word not in stop_words:
-                out_txt1.append(word)
+        # out_txt1 = []
+        # for word in in_txt:
+        #     if word not in stop_words:
+        #         out_txt1.append(word)
     
         out_txt2 = []
-        for word in out_txt1:
+        for word in in_txt:
             if word.isalpha():
                 out_txt2.append(word)
     
@@ -52,8 +52,8 @@ def preprocess_txt(in_text):
 
 def translate_to_english(text, filepath):
     try:
-        # return ' '.join(preprocess_txt(GoogleTranslator(source='auto', target='english').translate(text)))
-        return GoogleTranslator(source='auto', target='english').translate(text)
+        return ' '.join(preprocess_txt(GoogleTranslator(source='auto', target='english').translate(text)))
+        # return GoogleTranslator(source='auto', target='english').translate(text)
     except:
         print(f"error processing text for file: {filepath}")
 
