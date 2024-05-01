@@ -33,4 +33,6 @@ wsproto==1.2.0
 indic-nlp-library
 inltk
 scikit-learn
+flair
+textblob
 

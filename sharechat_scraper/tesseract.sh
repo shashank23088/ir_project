@@ -20,7 +20,8 @@ for folder in "$input_dir"/*; do
                 output_file="$output_folder/$file_name.txt"
 
                 # Run tesseract command
-                tesseract "$image_file" "$output_folder/$file_name" -l Devanagari eng hin ben pan gujr telu > /dev/null 2>&1
+                tesseract "$image_file" "$output_folder/$file_name" -l Devanagari eng hin ben pan guj tel > /dev/null 2>&1
+                # tesseract sharechat_scraper/updated_data/Punjabi/5ZEBpp_Punjabi/rKXV1ww.jpg out -l eng+guj
 
                 # Check if the output file exists
                 if [ -f "$output_folder/$file_name.txt" ]; then
