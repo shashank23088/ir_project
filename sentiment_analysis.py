@@ -16,7 +16,7 @@ for lang in languages:
     print(f"Getting sentiments for language: {lang}")
     print()
 
-    with open(f"translations_{lang}.pickle", "rb") as file:
+    with open(f"translations/translations_{lang}.pickle", "rb") as file:
         translations = pickle.load(file)
 
     new_translations = {}
@@ -44,9 +44,9 @@ for lang in languages:
     print(f"Making csv for actual label insertion....")
     actual_labels_df["file"] = file_locs
     actual_labels_df["text"] = texts
-    actual_labels_df.to_csv(f"actual_labels_{lang}.csv")
+    actual_labels_df.to_csv(f"actual_labels/actual_labels_{lang}.csv")
     print(f"actual label csv successfully saved!")
     print()
 
-    with open(f"sentiments_{lang}.pickle", "wb") as file:
+    with open(f"sentiments/sentiments_{lang}.pickle", "wb") as file:
         pickle.dump(new_translations, file)

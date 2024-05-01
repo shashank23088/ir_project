@@ -3,11 +3,13 @@ import numpy as numpy
 
 import os
 import nltk
+import regex
 import pickle
 from bs4 import BeautifulSoup
 from deep_translator import GoogleTranslator
 from tqdm import tqdm
 from constants import languages
+# from inltk.inltk import tokenize
 
 # Preprocess txt
 def remove_tags(html):
@@ -16,13 +18,20 @@ def remove_tags(html):
         data.decompose()
     return ' '.join(soup.stripped_strings)
 
+
+def remove_special_chars(text):
+    cleaned_text = regex.sub(r'[^\u0900-\u097F\s]', '', text)
+    return cleaned_text
+
+
 stop_words = set(nltk.corpus.stopwords.words('english'))
 wnl = nltk.stem.WordNetLemmatizer()
 
 
 def preprocess_txt(in_text):
     if pd.notna(in_text):
-        in_txt = remove_tags(in_text)
+        in_txt = remove_special_chars(in_text)
+        in_txt = remove_tags(in_txt)
         in_txt = in_txt.lower()
         in_txt = nltk.tokenize.word_tokenize(in_txt)
     
@@ -41,21 +50,28 @@ def preprocess_txt(in_text):
             blank_space_removed_token = word.strip()
             out_txt3.append(blank_space_removed_token)
     
-        out_txt4 = []
-        for word in out_txt3:
-            out_txt4.append(wnl.lemmatize(word))
+        # out_txt4 = []
+        # for word in out_txt3:
+        #     out_txt4.append(wnl.lemmatize(word))
     
-        return out_txt4
+        return out_txt3
 
     else:
         return []
 
 def translate_to_english(text, filepath):
     try:
-        return ' '.join(preprocess_txt(GoogleTranslator(source='auto', target='english').translate(text)))
-        # return GoogleTranslator(source='auto', target='english').translate(text)
+        if len(text) > 2000:
+            text = text[:2000]
+        # return ' '.join(preprocess_txt(GoogleTranslator(source='auto', target='english').translate(remove_special_chars(text))))
+        return ' '.join( nltk.tokenize.word_tokenize( GoogleTranslator(source='auto', target='english').translate(remove_special_chars(text)) ) )
     except:
+        print(len(text))
+        print()
+        print(text)
+        print()
         print(f"error processing text for file: {filepath}")
+        exit(1)
 
 def read_files_and_translate(directory):
     translations = {}
@@ -87,7 +103,7 @@ for lang in languages:
         translations_dict[directory] = translations
 
     # Save translations to a pickle file
-    pickle_file_path = f'translations_{lang}.pickle'
+    pickle_file_path = f'translations/translations_{lang}.pickle'
     with open(pickle_file_path, 'wb') as file:
         pickle.dump(translations_dict, file)
 
@@ -95,26 +111,28 @@ for lang in languages:
     print(f"{lang} Translations saved to", pickle_file_path)
     print()
 
-# to_text = "बिजेंदर बंसल ७ जुरुवात \
-# प्रधानमंत्री नरेन्द्र मोदी ने कहा कि \
-# कांग्रेस और घमंडिया गठबंधन \
-# को अब देश में लाखों करोड़ों की \
-# लागत से हो रहे विकास से दिककत \
-# | है। उनकी नींद हराम हो गई हैं। वो \
-# कह रहे हैं कि मोदी चुनाव की वजह \
-# से लाखों करोड़ों के विकास कर रहे \
-# | हैं। असल में इनके चश्मे का नंबर \
-# आल नेगेटिव है। आल नेगेटिविटी \
-# इनका चरित्र बन गया है। ये वो लोग \
-# हैं जो चुनावी घोषणाओं की सरकार \
-# चलाते थे। ये घोषणा करके घोंसले \
-# में घुस गए थे। हाथ पर हाथ धरकर \
-# बैठे रहे। अपनी उपलब्धियां गिनाति \
-# हुए कहा कि 2024 में तीन माह के \
-# भीतर ही 0 लाख करोड़ रुपये की \
-# परियोजनाओं का वह स्वयं या तो \
-# शिलान्यास कर चुके हैं या लोकार्पण"
+# to_text = "छ छु -र \
+#  \
+# dora ICN \
+#  \
+#   \
+#  \
+# Cala इ \
+# हमें कह दो पाकिस्तान = \
+# चले जाओ हमफिर |: \
+# Kc ड \
+# अपनी संघि कर लेते \
+#  \
+# EIS Esr Cnt hp \
+# कररही है? \
+#  \
+# हांपंजाब सरकार \
+# कररहीहै “he \
+# boi \
+# "
 
 # print(f"Original Text: \n{to_text}")
+# print()
+# print(f"Special char removed Text: {remove_special_chars(to_text)}")
 # print()
 # print(f"Translated Text: \n{translate_to_english(to_text, 'path')}")
